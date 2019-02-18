@@ -1,5 +1,4 @@
-FROM node:8.15.0-alpine
-ENV NODE_ENV production
+FROM node:8.15.0-slim
 ENV NODE_OPTS ""
 EXPOSE 3000
 WORKDIR /opt/app
@@ -16,4 +15,5 @@ RUN cp -r ./node_modules ./build
 
 # start
 WORKDIR build
+ENV NODE_ENV production
 ENTRYPOINT node $NODE_OPTS app.js
