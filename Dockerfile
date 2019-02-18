@@ -4,7 +4,7 @@ EXPOSE 3000
 WORKDIR /opt/app
 
 # prepare
-COPY * /opt/app/
+COPY ./ /opt/app/
 
 # build
 RUN npm install
