@@ -14,6 +14,6 @@ RUN npm prune --production
 RUN cp -r ./node_modules ./build
 
 # start
-WORKDIR build
+WORKDIR build/srv
 ENV NODE_ENV production
 ENTRYPOINT node $NODE_OPTS app.js
