@@ -38,6 +38,15 @@ function execWithLog() {
     fi
 }
 
+# 判断当前环境是否满足build任务
+function checkEnv() {
+    if [[ ! -x "$(command -v node)" ]]
+    then
+        exit 255
+    fi
+    return 0
+}
+
 # 清理可能存在的脏数据
 function clear() {
     execWithLog "rm -rf ./node_modules"
@@ -61,7 +70,8 @@ function package() {
 # 主函数
 function Main() {
     info "---------- Begin build & package ----------"
-    clear && build && package
+    checkEnv
+#    checkEnv && clear && build && package
     info "---------- End build & package ----------"
 }
 

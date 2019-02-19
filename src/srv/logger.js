@@ -3,7 +3,7 @@ import path from 'path';
 import winston, {Logger} from 'winston';
 import mkdirp from 'mkdirp';
 
-const logPath = path.join(__dirname, '../', 'log'),
+const logPath = path.join(__dirname, '../../', 'log'),
     infoLogFile = path.join(logPath, 'log-info.log'),
     errorLogFile = path.join(logPath, 'log-error.log');
 

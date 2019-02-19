@@ -1,8 +1,11 @@
 import 'babel-polyfill';
 import http from 'http';
-import path from 'path';
 import Koa from 'koa';
+import convert from 'koa-convert';
+import path from 'path';
+import koaStatic from 'koa-static-cache';
 import bodyParser from 'koa-bodyparser';
+import views from 'koa-views';
 
 import logger from './logger';
 import exit from './exit';
@@ -10,9 +13,22 @@ import {getConfig} from './util/config';
 
 const app = new Koa(),
     bundleKeys = [
-        'example'
+        'hello'
     ];
 
+const staticFiles = {};
+
+app.use(convert(koaStatic(getConfig('staticPath'), {
+    prefix: '/static',
+    buffer: true,
+    gzip: true
+}), staticFiles));
+app.use(views(path.join(getConfig('tmplRoot'), './views'), {
+    map: {
+        html: 'swig',
+        swig: 'swig'
+    }
+}));
 app.use(bodyParser());
 
 // app context
@@ -28,7 +44,7 @@ const server = http.createServer(app.callback());
 
 try {
     server.listen(getConfig('port'));
-    logger.info('Start accepting requests at 3000');
+    logger.info(`Start accepting requests at ${getConfig('port')}`);
 } catch (err) {
     logger.error(err);
     exit(app, server);
