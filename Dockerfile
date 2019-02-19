@@ -8,7 +8,7 @@ COPY ./ /opt/app/
 
 # build
 RUN npm install
-RUN npm run build
+RUN npm run prod
 # 使用该命令清理编译依赖，减少打包体积
 RUN npm prune --production
 RUN cp -r ./node_modules ./build
